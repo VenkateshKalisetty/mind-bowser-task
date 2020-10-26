@@ -1,1 +1,38 @@
-<p>sign-in works!</p>
+<mat-card>
+    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Emai *"
+              formControlName="email"
+            />
+            <mat-error *ngIf="form.get('email').hasError('required')">Required</mat-error>
+            <mat-error *ngIf="form.get('email').hasError('emai')">Invalid Email</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input
+              type="password"
+              matInput
+              placeholder="Password *"
+              formControlName="password"
+            />
+            <mat-error *ngIf="form.get('password').hasError('required')">Required</mat-error>
+            <mat-error *ngIf="form.get('password').hasError('minlength')">Should contains atleast 8 characters</mat-error>
+            <mat-error *ngIf="form.get('password').hasError('pattern')">Should contains atleast 1 letter, 1 number and 1 special character</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="button">
+          <button type="submit" mat-raised-button>Signin</button>
+          <button mat-button (click)="router.navigate(['auth', 'signup'])">Signup</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

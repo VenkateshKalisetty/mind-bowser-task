@@ -6,3 +6,23 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.success-snackbar-container {
+    background: #51A351 !important;
+    max-width: unset !important;
+}
+
+.error-snackbar-container {
+    background: #BD362F !important;
+    max-width: unset !important;
+}
+
+.info-snackbar-container {
+    background: #2F96B4 !important;
+    max-width: unset !important;
+}
+
+.warning-snackbar-container {
+    background: #F89406 !important;
+    max-width: unset !important;
+}
