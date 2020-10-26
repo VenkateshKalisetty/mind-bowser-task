@@ -13,7 +13,7 @@ export class AppComponent {
     this.route.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((v: any) => {
-        this.isAuthRoute = v.url.includes('auth');
+        this.isAuthRoute = v.urlAfterRedirects.includes('auth');
       });
   }
 }
