@@ -1,0 +1,16 @@
+{
+  "name": "mb-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "~4.16.1",
+    "jsonwebtoken": "^8.5.1",
+    "sequelize": "^6.3.3",
+    "sqlite3": "^5.0.0"
+  }
+}
