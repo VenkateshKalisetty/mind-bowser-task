@@ -39,7 +39,7 @@ import { ModifyDetailsComponent } from './modify-details/modify-details.componen
     FormsModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [ModifyDetailsComponent],
+  entryComponents: [ModifyDetailsComponent, DeleteConfirmComponent],
   providers: [MatNativeDateModule, DatePipe, EmployeeService],
 })
 export class EmployeeModule {}

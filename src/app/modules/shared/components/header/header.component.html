@@ -1,0 +1,10 @@
+<mat-toolbar>
+  <span>MIND BOWSER TASK</span>
+  <button mat-button (click)="navigateTo('home')">Home</button>
+  <button mat-button (click)="navigateTo('employee')">Employee</button>
+  <button mat-button (click)="navigateTo('subscription')">Subscription</button>
+  <span class="spacer"></span>
+  <button mat-button matTooltip="Logout" (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>

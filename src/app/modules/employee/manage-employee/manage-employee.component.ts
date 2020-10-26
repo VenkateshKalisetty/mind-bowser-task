@@ -2,23 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { IEmployee } from '../../shared/models/app.model';
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
 import { ModifyDetailsComponent } from '../modify-details/modify-details.component';
 
 @Component({
   selector: 'app-manage-employee',
   templateUrl: './manage-employee.component.html',
-  styleUrls: ['./manage-employee.component.scss']
+  styleUrls: ['./manage-employee.component.scss'],
 })
 export class ManageEmployeeComponent implements OnInit {
-  displayedColumns: string[] = ['sno', 'firstName', 'lastName', 'address', 'dob', 'mobile', 'city', 'actions'];
-  dataSource: MatTableDataSource<IEmployee> = new MatTableDataSource(EMPLOYEE_DATA);
+  displayedColumns: string[] = [
+    'sno',
+    'firstName',
+    'lastName',
+    'address',
+    'dob',
+    'mobile',
+    'city',
+    'actions',
+  ];
+  dataSource: MatTableDataSource<IEmployee> = new MatTableDataSource(
+    EMPLOYEE_DATA
+  );
 
-  constructor(
-    private dialog: MatDialog
-  ) { }
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addOrUpdateEmployeeDetails(data: IEmployee): void {
     const employee: IEmployee = {
@@ -31,20 +40,37 @@ export class ManageEmployeeComponent implements OnInit {
       city: data ? data.city : '',
     };
     this.dialog.open(ModifyDetailsComponent, {
-      data: employee
+      data: employee,
     });
   }
 
   deleteEmployee(employee: IEmployee): void {
-    console.log(employee);
+    this.dialog
+      .open(DeleteConfirmComponent)
+      .afterClosed()
+      .subscribe(
+        (res) => {
+          if (res) {
+            console.log(employee);
+          }
+        },
+        (err) => {}
+      );
   }
 
   searchEmployee(value: string): void {
     this.dataSource.filter = value.trim().toLowerCase();
   }
-
 }
 
 const EMPLOYEE_DATA: IEmployee[] = [
-  { employeeId: 2, firstName: 'Venky', lastName: 'Kalisetty', address: '', dob: '10-11-1996', mobile: '8500125473', city: 'HYD' }
+  {
+    employeeId: 2,
+    firstName: 'Venky',
+    lastName: 'Kalisetty',
+    address: '',
+    dob: '10-11-1996',
+    mobile: '8500125473',
+    city: 'HYD',
+  },
 ];

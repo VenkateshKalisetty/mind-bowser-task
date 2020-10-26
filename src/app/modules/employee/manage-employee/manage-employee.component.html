@@ -1,7 +1,7 @@
 <div class="container pt-3">
     <div class="row justify-content-center">
         <div class="col-8 justify-content-between" style="display: flex;">
-            <button mat-raised-button class="btn" color="accent" matTooltip="Add new employee" (click)="addOrUpdateEmployeeDetails()">
+            <button mat-raised-button class="btn" color="accent" matTooltip="Add new employee" (click)="addOrUpdateEmployeeDetails(null)">
                 <mat-icon>add</mat-icon>
             </button>
             <h2>Manage Employees</h2>
@@ -64,7 +64,7 @@
                         <button mat-icon-button color="accent" (click)="addOrUpdateEmployeeDetails(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn">
+                        <button mat-icon-button color="warn" (click)="deleteEmployee(element)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

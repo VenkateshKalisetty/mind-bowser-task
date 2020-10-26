@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAuth, IManager } from '../shared/models/app.model';
 
-@Injectable({})
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
   TOKEN_NAME = '';
   constructor(private httpClient: HttpClient) {}

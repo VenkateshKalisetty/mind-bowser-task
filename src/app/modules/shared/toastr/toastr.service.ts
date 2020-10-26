@@ -3,7 +3,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IToastrMessage, ToastrSnackbarComponent } from './toastr-snackbar.component';
 
 
-@Injectable({})
+@Injectable({
+  providedIn: 'root'
+})
 export class ToastrService {
   constructor(public snackbar: MatSnackBar) {}
 

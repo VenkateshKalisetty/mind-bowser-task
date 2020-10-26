@@ -1,8 +1,35 @@
 .container {
   .row {
-    padding-top: 30%;
     mat-card {
       cursor: pointer;
+      height: 10rem;
+      color: #ffffff;
+    }
+
+    .employee {
+      background-color: #F69240;
+
+      mat-icon {
+        font-size: 3rem;
+      }
+
+      h4 {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+    }
+
+    .subscription {
+      background-color: #69C195;
+
+      mat-icon {
+        font-size: 3rem;
+      }
+
+      h4 {
+        font-weight: bold;
+        font-size: 1rem;
+      }
     }
   }
 }
