@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IManager } from '../../shared/models/app.model';
 import { ToastrService } from '../../shared/toastr/toastr.service';
@@ -9,7 +9,7 @@ import { AuthenticationService } from '../authentication.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
   maxDate: Date = new Date();
@@ -34,15 +34,17 @@ export class SignUpComponent implements OnInit {
     public router: Router,
     private authService: AuthenticationService,
     private toastrService: ToastrService,
-    private datePipe: DatePipe,
-  ) { }
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.valid) {
       const data: IManager = this.form.value;
-      data.dob = data.dob ? this.datePipe.transform(data.dob, 'yyyy/MM/dd') : null;
+      data.dob = data.dob
+        ? this.datePipe.transform(data.dob, 'yyyy/MM/dd')
+        : null;
       this.authService.signup(this.form.value).subscribe(
         (res) => {
           this.router.navigate(['signin']);
@@ -57,5 +59,4 @@ export class SignUpComponent implements OnInit {
       this.form.markAllAsTouched();
     }
   }
-
 }

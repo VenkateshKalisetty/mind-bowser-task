@@ -1,86 +1,96 @@
 <mat-card>
-    <mat-card-title>Sign Up</mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div>
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              placeholder="First name *"
-              formControlName="firstName"
-            />
-            <mat-error *ngIf="form.get('firstName').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              placeholder="Last name *"
-              formControlName="lastName"
-            />
-            <mat-error *ngIf="form.get('lastName').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-label>DOB</mat-label>
-            <input matInput [matDatepicker]="dobPicker" placeholder="DOB" formControlName="dob" [max]="maxDate" autocomplete="off" readonly (click)="dobPicker.open()">
-            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-            <mat-datepicker #dobPicker></mat-datepicker>
-            <mat-error *ngIf="form.get('dob').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-              <textarea matInput placeholder="Type here..." formControlName="address"></textarea>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              placeholder="Company"
-              formControlName="company"
-            />
-          </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-              <input
-                type="text"
-                matInput
-                placeholder="Email *"
-                formControlName="email"
-              />
-              <mat-error *ngIf="form.get('email').hasError('required')">Required</mat-error>
-              <mat-error *ngIf="form.get('email').hasError('emai')">Invalid Email</mat-error>
-            </mat-form-field>
-          </div>
-
-        <div>
-          <mat-form-field>
-            <input
-              type="password"
-              matInput
-              placeholder="Password *"
-              formControlName="password"
-            />
-            <mat-error *ngIf="form.get('password').hasError('required')">Required</mat-error>
-            <mat-error *ngIf="form.get('password').hasError('minlength')">Should contains atleast 8 characters</mat-error>
-            <mat-error *ngIf="form.get('password').hasError('pattern')">Should contains atleast 1 letter, 1 number and 1 special character</mat-error>
-          </mat-form-field>
-        </div>
-  
-        <div class="button mt-4">
-            <button type="submit" mat-raised-button>Signup</button>
-            <button mat-button (click)="router.navigate(['auth', 'signin'])">Signin</button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
-  
+  <mat-card-title>Sign Up</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="First name *"
+            formControlName="firstName"
+          />
+          <mat-error *ngIf="form.get('firstName').hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="Last name *"
+            formControlName="lastName"
+          />
+          <mat-error *ngIf="form.get('lastName').hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>DOB</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dobPicker"
+            placeholder="DOB"
+            formControlName="dob"
+            [max]="maxDate"
+            autocomplete="off"
+            readonly
+            (click)="dobPicker.open()"
+          />
+          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+          <mat-error *ngIf="form.get('dob').hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <textarea
+            matInput
+            placeholder="Type here..."
+            formControlName="address"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="Company"
+            formControlName="company"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="Email *"
+            formControlName="email"
+          />
+          <mat-error *ngIf="form.get('email').hasError('required')">Required</mat-error>
+          <mat-error *ngIf="form.get('email').hasError('emai')">Invalid Email</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="password"
+            matInput
+            placeholder="Password *"
+            formControlName="password"
+          />
+          <mat-error *ngIf="form.get('password').hasError('required')">Required</mat-error>
+          <mat-error *ngIf="form.get('password').hasError('minlength')">Should contains atleast 8 characters</mat-error>
+          <mat-error *ngIf="form.get('password').hasError('pattern')">Should contains atleast 1 letter, 1 number and 1 specialcharacter</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button mt-4">
+        <button type="submit" mat-raised-button>Signup</button>
+        <button mat-button (click)="router.navigate(['auth', 'signin'])">Signin</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

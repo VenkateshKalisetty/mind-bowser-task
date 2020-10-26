@@ -1,66 +1,84 @@
-<h2 mat-dialog-title>{{data?.employeeId === -1 ? 'Add' : 'Update'}} Employee Details</h2>
+<h2 mat-dialog-title>
+  {{ data?.employeeId === -1 ? "Add" : "Update" }} Employee Details
+</h2>
 <mat-dialog-content class="mat-typography">
-    <form [formGroup]="form">
-        <div>
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              placeholder="First name *"
-              formControlName="firstName"
-            />
-            <mat-error *ngIf="form.get('firstName').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              placeholder="Last name *"
-              formControlName="lastName"
-            />
-            <mat-error *ngIf="form.get('lastName').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-label>DOB</mat-label>
-            <input matInput [matDatepicker]="dobPicker" placeholder="DOB" formControlName="dob" [max]="maxDate" autocomplete="off" readonly (click)="dobPicker.open()">
-            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-            <mat-datepicker #dobPicker></mat-datepicker>
-            <mat-error *ngIf="form.get('dob').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-              <textarea matInput placeholder="Type here..." formControlName="address"></textarea>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              placeholder="Mobile"
-              formControlName="mobile"
-            />
-            <mat-error *ngIf="form.get('mobile').hasError('required')">Required</mat-error>
-            <mat-error *ngIf="form.get('mobile').hasError('minlength') || form.get('mobile').hasError('maxlength')">Invalid mobile number</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-              <input
-                type="text"
-                matInput
-                placeholder="City"
-                formControlName="city"
-              />
-            </mat-form-field>
-          </div>
-      </form>
+  <form [formGroup]="form">
+    <div>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="First name *"
+          formControlName="firstName"
+        />
+        <mat-error *ngIf="form.get('firstName').hasError('required')">Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Last name *"
+          formControlName="lastName"
+        />
+        <mat-error *ngIf="form.get('lastName').hasError('required')">Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>DOB</mat-label>
+        <input
+          matInput
+          [matDatepicker]="dobPicker"
+          placeholder="DOB"
+          formControlName="dob"
+          [max]="maxDate"
+          autocomplete="off"
+          readonly
+          (click)="dobPicker.open()"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dobPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dobPicker></mat-datepicker>
+        <mat-error *ngIf="form.get('dob').hasError('required')">Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <textarea
+          matInput
+          placeholder="Type here..."
+          formControlName="address"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Mobile"
+          formControlName="mobile"
+        />
+        <mat-error *ngIf="form.get('mobile').hasError('required')">Required</mat-error>
+        <mat-error
+          *ngIf="
+            form.get('mobile').hasError('minlength') ||
+            form.get('mobile').hasError('maxlength')"
+          >Invalid mobile number</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input type="text" matInput placeholder="City" formControlName="city" />
+      </mat-form-field>
+    </div>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

@@ -32,9 +32,12 @@ export class ManageEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-      this.getEmployeesData();
+    this.getEmployeesData();
   }
 
+  /**
+   * Getting employees list under logged in manager
+   */
   getEmployeesData(): void {
     this.employeeService.getEmployeesData().subscribe(
       (res) => {
@@ -46,6 +49,10 @@ export class ManageEmployeeComponent implements OnInit {
     );
   }
 
+  /**
+   * Add or Update employee details
+   * @param data Employee data
+   */
   addOrUpdateEmployeeDetails(data: IEmployee): void {
     const employee: IEmployee = {
       employeeId: data ? data.employeeId : -1,
@@ -60,21 +67,25 @@ export class ManageEmployeeComponent implements OnInit {
       data: employee,
     });
 
-    dialogRef.afterClosed().subscribe(
-        (res) => {
-            if (res && res.success) {
-                if (employee.employeeId === -1) {
-                    this.employeeDataSource.data.splice(0, 0, res.emp);
-                } else {
-                    const index = this.employeeDataSource.data.findIndex(v => v.employeeId === employee.employeeId);
-                    this.employeeDataSource.data.splice(index, 1, res.emp);
-                }
-                this.employeeDataSource.data = this.employeeDataSource.data.slice();
-            }
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res && res.success) {
+        if (employee.employeeId === -1) {
+          this.employeeDataSource.data.splice(0, 0, res.emp);
+        } else {
+          const index = this.employeeDataSource.data.findIndex(
+            (v) => v.employeeId === employee.employeeId
+          );
+          this.employeeDataSource.data.splice(index, 1, res.emp);
         }
-    );
+        this.employeeDataSource.data = this.employeeDataSource.data.slice();
+      }
+    });
   }
 
+  /**
+   * Deleting employee under logged in manager
+   * @param employee Employee data
+   */
   deleteEmployee(employee: IEmployee): void {
     this.dialog
       .open(DeleteConfirmComponent)
@@ -83,14 +94,16 @@ export class ManageEmployeeComponent implements OnInit {
         (res) => {
           if (res) {
             this.employeeService.deleteEmployee(employee.employeeId).subscribe(
-                () => {
-                    const index = this.employeeDataSource.data.findIndex(v => v.employeeId === employee.employeeId);
-                    this.employeeDataSource.data.splice(index, 1);
-                    this.employeeDataSource.data = this.employeeDataSource.data.slice();
-                },
-                (err) => {
-                    this.toastr.error(err.error.msg);
-                }
+              () => {
+                const index = this.employeeDataSource.data.findIndex(
+                  (v) => v.employeeId === employee.employeeId
+                );
+                this.employeeDataSource.data.splice(index, 1);
+                this.employeeDataSource.data = this.employeeDataSource.data.slice();
+              },
+              (err) => {
+                this.toastr.error(err.error.msg);
+              }
             );
           }
         },
@@ -98,6 +111,10 @@ export class ManageEmployeeComponent implements OnInit {
       );
   }
 
+  /**
+   * Search/Filter employees in table
+   * @param value Search string
+   */
   searchEmployee(value: string): void {
     this.employeeDataSource.filter = value.trim().toLowerCase();
   }

@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
+import {
+  MatSnackBarRef,
+  MAT_SNACK_BAR_DATA,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-toastr-snackbar',
@@ -7,7 +10,9 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
     <div style="display: flex;">
       <mat-icon style="font-weight: 500;">{{ data.type }}</mat-icon>
       <span class="message">{{ data.message }}</span>
-      <mat-icon class="close" aria-label="Close" (click)="dismiss()">close</mat-icon>
+      <mat-icon class="close" aria-label="Close" (click)="dismiss()"
+        >close</mat-icon
+      >
     </div>
   `,
   styles: [
@@ -34,8 +39,9 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
 export class ToastrSnackbarComponent {
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data: IToastrMessage,
-    public snackBarRef: MatSnackBarRef<ToastrSnackbarComponent>
+    private snackBarRef: MatSnackBarRef<ToastrSnackbarComponent>
   ) {}
+
   dismiss(): void {
     this.snackBarRef.dismiss();
   }

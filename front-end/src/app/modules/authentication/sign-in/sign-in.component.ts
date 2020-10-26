@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from '../../shared/toastr/toastr.service';
 import { AuthenticationService } from '../authentication.service';
@@ -14,7 +13,8 @@ export class SignInComponent implements OnInit {
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
-      Validators.required, Validators.minLength(8),
+      Validators.required,
+      Validators.minLength(8),
       Validators.pattern(
         '^(?=.*\\d)(?=.*\\W)(?=.*[a-zA-Z])(?=.*[a-zA-Z]).{8,}$'
       ),
@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
   constructor(
     public router: Router,
     private authService: AuthenticationService,
-    private toastrService: ToastrService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -38,7 +38,7 @@ export class SignInComponent implements OnInit {
         },
         (err) => {
           console.log(err);
-          this.toastrService.error(err.error.msg);
+          this.toastr.error(err.error.msg);
         }
       );
     } else {

@@ -18,8 +18,6 @@ import { SubscriptionService } from './subscription.service';
     MatIconModule,
     MatTooltipModule,
   ],
-  providers: [
-    SubscriptionService
-  ]
+  providers: [SubscriptionService],
 })
 export class SubscriptionModule {}

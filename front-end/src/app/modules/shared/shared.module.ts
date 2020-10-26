@@ -5,9 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { HeaderComponent } from './components/header/header.component';
 import { ToastrSnackbarComponent } from './toastr/toastr-snackbar.component';
 import { ToastrService } from './toastr/toastr.service';
-import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [ToastrSnackbarComponent, HeaderComponent],
