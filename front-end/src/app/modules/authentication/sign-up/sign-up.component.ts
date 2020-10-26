@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IManager } from '../../shared/models/app.model';
 import { ToastrService } from '../../shared/toastr/toastr.service';
 import { AuthenticationService } from '../authentication.service';
 
@@ -32,12 +34,15 @@ export class SignUpComponent implements OnInit {
     public router: Router,
     private authService: AuthenticationService,
     private toastrService: ToastrService,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.valid) {
+      const data: IManager = this.form.value;
+      data.dob = data.dob ? this.datePipe.transform(data.dob, 'yyyy/MM/dd') : null;
       this.authService.signup(this.form.value).subscribe(
         (res) => {
           this.router.navigate(['signin']);
@@ -48,6 +53,8 @@ export class SignUpComponent implements OnInit {
           this.toastrService.error(err.error.msg);
         }
       );
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 

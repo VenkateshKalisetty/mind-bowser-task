@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { IEmployee } from '../../shared/models/app.model';
+import { ToastrService } from '../../shared/toastr/toastr.service';
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import { EmployeeService } from '../employee.service';
 import { ModifyDetailsComponent } from '../modify-details/modify-details.component';
 
 @Component({
@@ -21,13 +23,28 @@ export class ManageEmployeeComponent implements OnInit {
     'city',
     'actions',
   ];
-  dataSource: MatTableDataSource<IEmployee> = new MatTableDataSource(
-    EMPLOYEE_DATA
-  );
+  employeeDataSource: MatTableDataSource<IEmployee> = new MatTableDataSource([]);
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private employeeService: EmployeeService,
+    private toastr: ToastrService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+      this.getEmployeesData();
+  }
+
+  getEmployeesData(): void {
+    this.employeeService.getEmployeesData().subscribe(
+      (res) => {
+        this.employeeDataSource = new MatTableDataSource(res);
+      },
+      (err) => {
+        this.toastr.error(err.error.msg);
+      }
+    );
+  }
 
   addOrUpdateEmployeeDetails(data: IEmployee): void {
     const employee: IEmployee = {
@@ -39,9 +56,23 @@ export class ManageEmployeeComponent implements OnInit {
       mobile: data ? data.mobile : '',
       city: data ? data.city : '',
     };
-    this.dialog.open(ModifyDetailsComponent, {
+    const dialogRef = this.dialog.open(ModifyDetailsComponent, {
       data: employee,
     });
+
+    dialogRef.afterClosed().subscribe(
+        (res) => {
+            if (res && res.success) {
+                if (employee.employeeId === -1) {
+                    this.employeeDataSource.data.splice(0, 0, res.emp);
+                } else {
+                    const index = this.employeeDataSource.data.findIndex(v => v.employeeId === employee.employeeId);
+                    this.employeeDataSource.data.splice(index, 1, res.emp);
+                }
+                this.employeeDataSource.data = this.employeeDataSource.data.slice();
+            }
+        }
+    );
   }
 
   deleteEmployee(employee: IEmployee): void {
@@ -51,7 +82,16 @@ export class ManageEmployeeComponent implements OnInit {
       .subscribe(
         (res) => {
           if (res) {
-            console.log(employee);
+            this.employeeService.deleteEmployee(employee.employeeId).subscribe(
+                () => {
+                    const index = this.employeeDataSource.data.findIndex(v => v.employeeId === employee.employeeId);
+                    this.employeeDataSource.data.splice(index, 1);
+                    this.employeeDataSource.data = this.employeeDataSource.data.slice();
+                },
+                (err) => {
+                    this.toastr.error(err.error.msg);
+                }
+            );
           }
         },
         (err) => {}
@@ -59,18 +99,6 @@ export class ManageEmployeeComponent implements OnInit {
   }
 
   searchEmployee(value: string): void {
-    this.dataSource.filter = value.trim().toLowerCase();
+    this.employeeDataSource.filter = value.trim().toLowerCase();
   }
 }
-
-const EMPLOYEE_DATA: IEmployee[] = [
-  {
-    employeeId: 2,
-    firstName: 'Venky',
-    lastName: 'Kalisetty',
-    address: '',
-    dob: '10-11-1996',
-    mobile: '8500125473',
-    city: 'HYD',
-  },
-];

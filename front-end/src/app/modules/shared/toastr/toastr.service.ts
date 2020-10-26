@@ -46,7 +46,7 @@ export class ToastrService {
   }
 
   // Showing snackbar with alert message and type
-  openSnackbar(alert: IToastrMessage): void {
+  private openSnackbar(alert: IToastrMessage): void {
     this.snackbar.openFromComponent(ToastrSnackbarComponent, {
       data: alert,
       duration: 4000,
@@ -54,9 +54,5 @@ export class ToastrService {
       verticalPosition: 'bottom',
       panelClass: [alert.class],
     });
-  }
-
-  dismiss(): void {
-    this.snackbar.dismiss();
   }
 }

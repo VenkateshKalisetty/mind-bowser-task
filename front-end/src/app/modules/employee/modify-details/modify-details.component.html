@@ -26,7 +26,7 @@
         <div>
           <mat-form-field>
             <mat-label>DOB</mat-label>
-            <input matInput [matDatepicker]="dobPicker" placeholder="DOB" formControlName="dob" [max]="maxDate">
+            <input matInput [matDatepicker]="dobPicker" placeholder="DOB" formControlName="dob" [max]="maxDate" autocomplete="off" readonly (click)="dobPicker.open()">
             <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
             <mat-datepicker #dobPicker></mat-datepicker>
             <mat-error *ngIf="form.get('dob').hasError('required')">Required</mat-error>
@@ -64,5 +64,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">Submit</button>
+  <button mat-raised-button cdkFocusInitial (click)="onSubmit()">Submit</button>
 </mat-dialog-actions>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
@@ -34,6 +34,7 @@ import { AuthenticationService } from './authentication.service';
     MatDatepickerModule,
     MatNativeDateModule,
     AuthenticationService,
+    DatePipe,
   ]
 })
 export class AuthenticationModule {}

@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['signin']);
+      this.router.navigate(['auth', 'signin']);
       return false;
     }
     return true;
@@ -31,7 +31,7 @@ export class SignInGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['rooms']);
+      this.router.navigate(['home']);
       return false;
     }
     return true;

@@ -35,7 +35,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-const generateToken = async (user) => {
+const generateToken = (user) => {
     return jwt.sign(user, CONSTANT.JWT_SECRET_TOKEN, {
         expiresIn: CONSTANT.JWT_TOKEN_EXPIRE_TIME,
     });

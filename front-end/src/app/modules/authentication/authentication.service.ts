@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { IAuth, IManager } from '../shared/models/app.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  TOKEN_NAME = '';
   constructor(private httpClient: HttpClient) {}
 
   signin(authData: IAuth): Observable<any> {
-    const endpoint = ``;
+    const endpoint = `${environment.apiUrl}/auth/signin`;
     return this.httpClient.post<any>(endpoint, authData);
   }
 
   signup(data: IManager): Observable<boolean> {
-    const endpoint = ``;
+    const endpoint = `${environment.apiUrl}/auth/signup`;
     return this.httpClient.post<boolean>(endpoint, data);
   }
 
@@ -26,16 +26,16 @@ export class AuthenticationService {
   }
 
   getToken(): string {
-    const data = JSON.parse(localStorage.getItem(this.TOKEN_NAME));
+    const data = JSON.parse(localStorage.getItem(environment.tokenName));
     return data ? data.jwtToken : null;
   }
 
   removeToken(): void {
-    localStorage.removeItem(this.TOKEN_NAME);
+    localStorage.removeItem(environment.tokenName);
   }
 
-  setLocalStorage(data: any): void {
-    localStorage.setItem(this.TOKEN_NAME, JSON.stringify(data));
+  setToken(data: any): void {
+    localStorage.setItem(environment.tokenName, JSON.stringify(data));
   }
 
 }

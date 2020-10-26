@@ -27,7 +27,7 @@
         <div>
           <mat-form-field>
             <mat-label>DOB</mat-label>
-            <input matInput [matDatepicker]="dobPicker" placeholder="DOB" formControlName="dob" [max]="maxDate">
+            <input matInput [matDatepicker]="dobPicker" placeholder="DOB" formControlName="dob" [max]="maxDate" autocomplete="off" readonly (click)="dobPicker.open()">
             <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
             <mat-datepicker #dobPicker></mat-datepicker>
             <mat-error *ngIf="form.get('dob').hasError('required')">Required</mat-error>
@@ -76,7 +76,7 @@
           </mat-form-field>
         </div>
   
-        <div class="button">
+        <div class="button mt-4">
             <button type="submit" mat-raised-button>Signup</button>
             <button mat-button (click)="router.navigate(['auth', 'signin'])">Signin</button>
         </div>

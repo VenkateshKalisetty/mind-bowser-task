@@ -1,5 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { SEQUELIZE_OPTIONS } = require("../config");
+const moment = require('moment');
 
 const sequelize = new Sequelize(SEQUELIZE_OPTIONS);
 
@@ -19,11 +20,6 @@ const Employee = sequelize.define(
                 key: 'id'
             }
         },
-        email: {
-            type: DataTypes.STRING(75),
-            unique: true,
-            allowNull: false,
-        },
         first_name: {
             type: DataTypes.STRING(50),
             allowNull: false,
@@ -32,16 +28,22 @@ const Employee = sequelize.define(
             type: DataTypes.STRING(50),
             allowNull: false,
         },
-        password: {
-            type: DataTypes.STRING(25),
-            allowNull: false,
-        },
         dob: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
         },
         address: {
             type: DataTypes.STRING(500),
         },
+        city: {
+            type: DataTypes.STRING(50),
+        },
+        mobile: {
+            type: DataTypes.STRING(15),
+        },
+        isDeleted: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
     },
     {
         tableName: "employee",

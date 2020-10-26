@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const morgan = require('morgan');
 require("./db/connection");
 
 const noAuthRouter = require("./routes/noAuth");
@@ -10,6 +11,7 @@ const { PORT } = require("./config");
 const app = express();
 
 app.use(cors());
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, "./frontend/dist/wd-m1-ui/")));

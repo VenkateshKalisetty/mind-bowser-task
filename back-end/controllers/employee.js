@@ -1,26 +1,28 @@
 const Employee = require('../models/employee');
 const { Response } = require("../utils");
-const { Op } = require('sequelize');
+const moment = require('moment');
 
 
-const addEmployee = async (req, res) => {
+const addOrUpdateEmployee = async (req, res) => {
     const empBody = req.body;
     const emp = {
-        email: empBody.email,
+        manager_id: req.user.id,
         first_name: empBody.firstName,
         last_name: empBody.lastName,
-        password: empBody.password,
-        dob: empBody.dob,
         address: empBody.address,
+        dob: empBody.dob ? new Date(empBody.dob) : null,
+        mobile: empBody.mobile,
+        city: empBody.city,
     };
     try {
-        if (await isEmployeeExists(emp.email, null)) {
-            const newEmp = await Employee.create(emp);
-            return Response.created(res, newEmp.dataValues);
+        if (empBody.employeeId === -1) {
+            const { dataValues } = await Employee.create(emp);
+            empBody.employeeId = dataValues.id;
+        } else {
+            emp.id = empBody.employeeId;
+            await Employee.update(emp, { where: { id: emp.id } });
         }
-        return Response.badRequest(res, {
-            msg: "Employee email already existsted!"
-        });
+        return Response.created(res, empBody);
     } catch (ex) {
         Response.internalServerErr(res, {
             msg: "Failed to add the Employee!"
@@ -31,19 +33,17 @@ const addEmployee = async (req, res) => {
 const getEmployees = async (req, res) => {
     const managerId = req.user.id;
     try {
-        if (await isEmployeeExists(null, managerId)) {
-            const employees = (await Employee.findAll({ where: { manager_id: managerId } }))
-                .map(emp => ({
-                    id: emp.id,
-                    email: emp.email,
-                    name: emp.name,
-                    firstName: emp.first_name,
-                    lastName: emp.last_name,
-                    dbo: emp.dbo,
-                    address: emp.address,
-                }));
-            return Response.ok(res, employees);
-        }
+        const employees = (await Employee.findAll({ where: { manager_id: managerId, isDeleted: false } }))
+            .map(emp => ({
+                employeeId: emp.id,
+                firstName: emp.first_name,
+                lastName: emp.last_name,
+                address: emp.address,
+                dob: emp.dob ? moment(emp.dob).format('YYYY/MM/DD') : null,
+                city: emp.city,
+                mobile: emp.mobile,
+            }));
+        return Response.ok(res, employees);
     } catch (ex) {
         Response.internalServerErr(res, {
             msg: "Failed to fetch employees!"
@@ -54,9 +54,9 @@ const getEmployees = async (req, res) => {
 const deleteEmployee = async (req, res) => {
     const empId = req.params.empId;
     try {
-        if (await isEmployeeExists(null, empId)) {
-            await Employee.destroy({ where: { id: empId } });
-            return Response.deleted(res);
+        if (await isEmployeeExists(empId)) {
+            await Employee.update({isDeleted: true}, { where: { id: empId } });
+            return Response.created(res);
         }
         return Response.badRequest(res, {
             msg: "Employee not found!"
@@ -68,14 +68,10 @@ const deleteEmployee = async (req, res) => {
     }
 }
 
-const isEmployeeExists = async (email, empId) => {
+const isEmployeeExists = async (empId) => {
     return (await Employee.findOne({
-        where: {
-            [Op.or]: [
-                { email: email }, { id: empId }
-            ]
-        }
-    })) != null;
+        where: { id: empId }
+    })) != null
 }
 
-module.exports = { addEmployee, deleteEmployee, getEmployees }
+module.exports = { addOrUpdateEmployee, deleteEmployee, getEmployees }

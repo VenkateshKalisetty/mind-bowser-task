@@ -33,7 +33,7 @@ export class SignInComponent implements OnInit {
     if (this.form.valid) {
       this.authService.signin(this.form.value).subscribe(
         (res) => {
-          this.authService.setLocalStorage(res);
+          this.authService.setToken(res);
           this.router.navigate(['home']);
         },
         (err) => {
@@ -41,6 +41,8 @@ export class SignInComponent implements OnInit {
           this.toastrService.error(err.error.msg);
         }
       );
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

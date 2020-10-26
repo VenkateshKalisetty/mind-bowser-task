@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard, SignInGuard } from './modules/shared/guards/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'auth',
+    canActivate: [SignInGuard],
     loadChildren: () =>
       import('./modules/authentication/authentication.module').then(
         (v) => v.AuthenticationModule
@@ -11,11 +13,13 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/home/home.module').then((v) => v.HomeModule),
   },
   {
     path: 'employee',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/employee/employee.module').then(
         (v) => v.EmployeeModule
@@ -23,6 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'subscription',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/subscription/subscription.module').then(
         (v) => v.SubscriptionModule
