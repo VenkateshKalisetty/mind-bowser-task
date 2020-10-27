@@ -4,13 +4,18 @@
       cursor: pointer;
       height: 10rem;
       color: #ffffff;
+
+      &:hover {
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
     }
 
     .employee {
       background-color: #F69240;
 
       mat-icon {
-        font-size: 4rem;
+        font-size: 4em;
       }
 
       h4 {
@@ -23,7 +28,7 @@
       background-color: #69C195;
 
       mat-icon {
-        font-size: 4rem;
+        font-size: 4em;
       }
 
       h4 {

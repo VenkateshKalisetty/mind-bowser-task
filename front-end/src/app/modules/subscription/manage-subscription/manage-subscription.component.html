@@ -1,18 +1,14 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <mat-card>
-        <div class="header">Monthly Plan Details:</div>
-        <div class="sub-header mt-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </div>
-        <div class="mt-5">
-          <button mat-raised-button color="primary">Get Plan</button>
-        </div>
-      </mat-card>
+  <mat-card class="card">
+    <div class="photo">
+      <img src="../../../../assets/monthly_subscription.png" />
     </div>
-  </div>
+    <div class="description">
+      <h2>{{ product.name }}</h2>
+      <h4>{{ product.description }}</h4>
+      <h1>{{ product.price | currency: "INR":true }}</h1>
+      <p>{{ product.details }}</p>
+      <button (click)="checkout()">Checkout</button>
+    </div>
+  </mat-card>
 </div>

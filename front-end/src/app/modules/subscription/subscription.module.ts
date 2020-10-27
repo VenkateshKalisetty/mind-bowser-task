@@ -7,9 +7,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ManageSubscriptionComponent } from './manage-subscription/manage-subscription.component';
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionService } from './subscription.service';
+import { PaymentFailureComponent } from './payment-failure/payment-failure.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 
 @NgModule({
-  declarations: [ManageSubscriptionComponent],
+  declarations: [ManageSubscriptionComponent, PaymentFailureComponent, PaymentSuccessComponent],
   imports: [
     CommonModule,
     SubscriptionRoutingModule,
