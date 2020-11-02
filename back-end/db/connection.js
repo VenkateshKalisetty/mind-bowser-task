@@ -10,7 +10,7 @@ const init = async () => {
         await sequelize.authenticate();
         await Manager.sync();
         await Employee.sync();
-        console.log("Db Initialized!");
+        console.log("DB Initialized!");
     } catch(ex) {
         console.log("Unable to connect to SQLite database: ", ex);
     }

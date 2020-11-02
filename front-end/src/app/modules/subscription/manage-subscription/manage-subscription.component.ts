@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./manage-subscription.component.scss'],
 })
 export class ManageSubscriptionComponent implements OnInit {
-  priceId = 'price_1Hgks6CkgYmpdTAdh1xxKCjG';
   product = {
     name: 'Monthly Subscription',
     description: 'Monthly Subscription Test',
@@ -16,10 +15,10 @@ export class ManageSubscriptionComponent implements OnInit {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam',
     image:
       'https://www.ktechnosoft.biz/wp-content/uploads/2018/04/KTS-Monthly-Subscription.png',
-    price: 999,
+    price: 1999,
   };
   quantity = 1;
-  stripePromise = loadStripe(environment.stripe_key);
+  stripePromise = loadStripe(environment.stripeKey);
 
   constructor() {}
 
@@ -27,14 +26,11 @@ export class ManageSubscriptionComponent implements OnInit {
 
   async checkout(): Promise<void> {
     const stripe = await this.stripePromise;
-    const { error } = await stripe.redirectToCheckout({
-      mode: 'payment',
-      lineItems: [{ price: this.priceId, quantity: this.quantity }],
-      successUrl: `${window.location.href}/success`,
+    const result = await stripe.redirectToCheckout({
+      mode: 'subscription',
+      lineItems: [{ price: environment.samplePriceId, quantity: this.quantity }],
+      successUrl: `${window.location.href}/succes`,
       cancelUrl: `${window.location.href}/failure`,
     });
-    if (error) {
-      console.log(error);
-    }
   }
 }
